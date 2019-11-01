@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+  <script src="{{url_for('static',filename='move.js')}}" ></script>
+  <title>{% block title %}{% endblock %} - Conversion Website</title>
+  
+  </head>
+  <body>
+    <form action="/action_page.php">
+    <select name="State">
+      {{jinja variable}}
+    </select>
+    <br></br>
+    <input type="submit">
+    </form>
+   
+    {% block content %}{% endblock %}
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </body>
+</html>
