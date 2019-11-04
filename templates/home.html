@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
   <script src="{{url_for('static',filename='move.js')}}" ></script>
-  <title>{% block title %}{% endblock %} - Conversion Website</title>
+  <title>{% block title %}{% endblock %} - Fun Facts</title>
   
   </head>
   <body>
     <form action="/action_page.php">
     <select name="State">
-      {{jinja variable}}
+      {{state}}
+	  <option value=\"" + s + "\">" + s + "</option>
     </select>
     <br></br>
-    <input type="submit">
+    <input type="Submit" value="Get a fun fact!">
     </form>
    
-    {% block content %}{% endblock %}
+    {% block content %}response{% endblock %}
     
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
