@@ -11,11 +11,11 @@
   <body>
     <form action="/action_page.php">
     <select name="State">
-      {{state}}
-	  <option value=\"" + s + "\">" + s + "</option>
+		{{state}}
     </select>
     <br></br>
     <input type="Submit" value="Get a fun fact!">
+		{{fact}}
     </form>
    
     {% block content %}response{% endblock %}
