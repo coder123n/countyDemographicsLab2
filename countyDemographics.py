@@ -15,16 +15,25 @@ def get_state_options(counties):
     return option
     
        
-def get_state_fact(counties):
-    request.args[state]
+def get_state_fact(counties,state):
+    num=0
     for data in counties:
-        data["Miscellaneous"]["Building Permits"]
-
+        if data["State"] == state:
+            num=data["Miscellaneous"]["Building Permits"]
+    fact= srt(state) + " has " + str(num) + " building permits......"
+    return fact
+    
 @app.route("/")
 def render_main():
     with open('county_demographics.json') as demographics_data:
         counties = json.load(demographics_data)
-    return render_template('home.html',state=get_state_options(counties),fact=get_state_fact(counties))
+    return render_template('home.html',state=get_state_options(counties),fact='')
 
+@app.route("/reply")
+def render_reply():
+    with open('county_demographics.json') as demographics_data:
+        counties = json.load(demographics_data)
+    return render_template('home.html',state=get_state_options(counties),fact=get_state_fact(counties,request.args["state"]))
+    
 if __name__=="__main__":
     app.run(debug=False, port=54321)
