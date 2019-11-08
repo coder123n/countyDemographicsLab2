@@ -9,16 +9,24 @@
   
   </head>
   <body>
-    <form action="/reply">
+    <form action="/fun">
     <select name="State">
 		{{state}}
     </select>
     <br></br>
-    <input type="Submit" value="Get a fun fact!">
-		{{fact}}
+    <input type="Submit" value="Choose your state!">
     </form>
-   
-    {% block content %}response{% endblock %}
+	<br></br>
+	<br></br>
+	<form action="/reply">
+    <select name="County">
+		{{county}}
+    </select>
+    <br></br>
+    <input type="Submit" value="Get a fun fact!">
+		
+    </form>
+	{{fact}}
     
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

@@ -14,26 +14,43 @@ def get_state_options(counties):
         option=option+Markup("<option value=\"" + data + "\">" + data + "</option>")
     return option
     
-       
+def get_county_options(counties,state):
+    listofcounties=[]
+    option=""
+    for data in counties:
+        if data["State"] == state:
+            if data["County"] not in listofcounties:
+                listofcounties.append(data["County"])
+    for data in listofcounties:
+        option=option+Markup("<option value=\"" + data + "\">" + data + "</option>")
+    return option
+    
 def get_state_fact(counties,state):
     num=0
     for data in counties:
         if data["State"] == state:
-            num=data["Miscellaneous"]["Building Permits"]
-    fact= srt(state) + " has " + str(num) + " building permits......"
+            if data["County"] == county:
+                num=data["Miscellaneous"]["Building Permits"]
+            fact= str(county) + " in " + str(state) + " has " + str(num) + " building permit(s)!!!"
     return fact
     
 @app.route("/")
 def render_main():
     with open('county_demographics.json') as demographics_data:
         counties = json.load(demographics_data)
-    return render_template('home.html',state=get_state_options(counties),fact='')
+    return render_template('home.html',state=get_state_options(counties),county='',fact='')
 
+@app.route("/fun")
+def render_fun():
+    with open('county_demographics.json') as demographics_data:
+        counties = json.load(demographics_data)
+    return render_template('home.html',state=get_state_options(counties),county=get_county_options(counties,request.args["State"]),fact='')
+    
 @app.route("/reply")
 def render_reply():
     with open('county_demographics.json') as demographics_data:
         counties = json.load(demographics_data)
-    return render_template('home.html',state=get_state_options(counties),fact=get_state_fact(counties,request.args["state"]))
+    return render_template('home.html',state=get_state_options(counties),county=get_county_options(counties,request.args["State"]),fact=get_state_fact(counties,request.args["State"],request.args["County"]))
     
 if __name__=="__main__":
     app.run(debug=False, port=54321)
