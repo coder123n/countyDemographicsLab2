@@ -25,13 +25,12 @@ def get_county_options(counties,state):
         option=option+Markup("<option value=\"" + data + "\">" + data + "</option>")
     return option
     
-def get_state_fact(counties,state):
+def get_county_fact(counties,county):
     num=0
     for data in counties:
-        if data["State"] == state:
             if data["County"] == county:
                 num=data["Miscellaneous"]["Building Permits"]
-            fact= str(county) + " in " + str(state) + " has " + str(num) + " building permit(s)!!!"
+                fact= str(county) + " in " + str(data["State"]) + " has " + str(num) + " building permit(s)!!!"
     return fact
     
 @app.route("/")
@@ -50,7 +49,7 @@ def render_fun():
 def render_reply():
     with open('county_demographics.json') as demographics_data:
         counties = json.load(demographics_data)
-    return render_template('home.html',state=get_state_options(counties),county=get_county_options(counties,request.args["State"]),fact=get_state_fact(counties,request.args["State"],request.args["County"]))
+    return render_template('home.html',state=get_state_options(counties),county='',fact=get_county_fact(counties,request.args["County"]))
     
 if __name__=="__main__":
     app.run(debug=False, port=54321)
